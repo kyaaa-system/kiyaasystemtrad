@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KIYAAAA · KOMPAS100 Signal Engine</title>
+<style>
+:root{--bg:#050f1a;--p1:#0a1a2a;--p2:#0e2338;--bd:#153049;--tx:#e8f3ff;--mu:#7f9bb5;--bl:#2f8bff;--tl:#14d6c0;--gr:#1fe58f;--rd:#ff6b81;--gl:linear-gradient(135deg,#2f8bff,#14d6c0 60%,#1fe58f)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(1000px 500px at 85% -10%,#0b2a4a66,transparent),radial-gradient(800px 500px at -10% 110%,#0a3b3466,transparent),var(--bg);color:var(--tx);font:13px/1.45 Inter,system-ui,sans-serif;display:flex;min-height:100vh}
+button,input,select{font:inherit;color:var(--tx);background:var(--p2);border:1px solid var(--bd);border-radius:9px;padding:7px 11px;outline:0;transition:.2s}
+input:focus,select:focus{border-color:var(--bl);box-shadow:0 0 0 3px #2f8bff33}button{cursor:pointer}button:hover{border-color:var(--tl)}
+.pri{background:var(--gl);color:#03121f;border:0;font-weight:700}.pri:hover{filter:brightness(1.1)}
+.p{color:var(--gr)}.n{color:var(--rd)}.mu{color:var(--mu)}
+nav{width:220px;flex:none;border-right:1px solid var(--bd);background:#07182799;padding:18px 12px;display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;margin:0 6px 18px}
+.lg{width:34px;height:34px;border-radius:10px;background:var(--gl);display:grid;place-items:center;color:#03121f;font-weight:900;animation:glow 3s infinite}@keyframes glow{50%{box-shadow:0 0 18px #14d6c088}}
+nav a{padding:10px 12px;border-radius:10px;color:var(--mu);cursor:pointer;font-weight:600;transition:.2s}
+nav a:hover{background:#14d6c012;color:var(--tx)}nav a.on{background:linear-gradient(90deg,#2f8bff33,#14d6c022);color:var(--tx);box-shadow:inset 3px 0 var(--tl)}
+.eng{margin-top:auto;color:var(--mu);font-size:12px;display:flex;gap:8px;align-items:center}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--gr);position:relative;flex:none}.dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--gr);animation:ping 1.6s infinite}@keyframes ping{to{transform:scale(3);opacity:0}}
+main{flex:1;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.card{background:linear-gradient(180deg,var(--p2),var(--p1));border:1px solid var(--bd);border-radius:14px;padding:14px}
+.hdr{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.hdr h1{margin:0;font-size:21px;display:inline}.bdg{background:var(--gl);color:#03121f;font-size:10px;font-weight:800;padding:3px 9px;border-radius:20px;margin-left:8px;vertical-align:middle}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.par{display:flex;flex-wrap:wrap;gap:14px;align-items:center}.par label{display:flex;gap:6px;align-items:center;color:var(--mu)}.par input{width:64px}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.g9{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.k{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--p2),var(--p1));border:1px solid var(--bd);border-radius:12px;padding:12px 14px;animation:up .5s backwards;animation-delay:calc(var(--i)*60ms);transition:.25s}
+.k:hover{transform:translateY(-3px);border-color:var(--tl);box-shadow:0 8px 24px #14d6c022}.k::before{content:"";position:absolute;left:0;top:0;height:2px;width:100%;background:var(--gl)}
+.k span{color:var(--mu);font-size:11px;text-transform:uppercase;letter-spacing:.4px}.k b{display:block;font-size:24px;margin:2px 0;font-variant-numeric:tabular-nums}.k small{color:var(--mu)}
+.g9 .k b{font-size:20px}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+h2{font-size:15px;margin:0 0 4px}.sub{color:var(--mu);margin:0 0 10px;font-size:12px}
+.w{overflow:auto;max-height:420px}table{border-collapse:collapse;width:100%;white-space:nowrap;font-variant-numeric:tabular-nums}
+th,td{padding:8px 10px;text-align:right;border-bottom:1px solid #153049aa}th{position:sticky;top:0;background:var(--p2);color:var(--mu);font-size:11px;cursor:pointer}
+th:first-child,td:first-child{text-align:left}tbody tr{animation:up .3s backwards;animation-delay:calc(var(--i)*12ms)}tbody tr:hover{background:#2f8bff14}
+.tg{padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700}.BUY,.LONG,.hot{background:#1fe58f22;color:var(--gr)}.SELL{background:#ff6b8122;color:var(--rd)}.near{background:#2f8bff22;color:#6db0ff}
+.chips{display:flex;gap:6px}.chip{border-radius:20px;padding:5px 12px;font-size:12px}.chip.on{background:var(--gl);color:#03121f;border:0;font-weight:700}
+.hm{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
+.tile{border-radius:10px;padding:10px;cursor:pointer;border:1px solid var(--bd);animation:up .4s backwards;animation-delay:calc(var(--i)*10ms);transition:.2s}.tile:hover{transform:scale(1.06);z-index:2;border-color:var(--tx)}.tile b{display:block}.tile small{font-size:11px}
+svg{width:100%;height:auto;display:block}.ln{stroke-dasharray:1;stroke-dashoffset:1;animation:dr 1.6s ease forwards}@keyframes dr{to{stroke-dashoffset:0}}
+#prog{position:fixed;top:0;left:0;height:2px;width:0;background:var(--gl);z-index:60;transition:width .3s;box-shadow:0 0 10px var(--tl)}
+.note{color:var(--mu);font-size:12px;line-height:1.55}.note b{color:var(--tx)}
+.two{display:grid;grid-template-columns:250px 1fr;gap:12px;align-items:start}
+.slist{max-height:600px;overflow:auto;display:flex;flex-direction:column;gap:3px;margin-top:4px}
+.srow{display:flex;justify-content:space-between;align-items:center;padding:9px 10px;border-radius:9px;cursor:pointer;border:1px solid transparent;animation:up .3s backwards;animation-delay:calc(var(--i)*10ms)}
+.srow:hover{background:#14d6c012}.srow.on{background:linear-gradient(90deg,#2f8bff33,#14d6c022);border-color:var(--bd)}
+.srow b{display:block;font-size:13px}.srow small{color:var(--mu);font-size:11px}
+.srow .pr{text-align:right}.srow .pr b{font-size:13px}
+.FLAT{background:#7f9bb522;color:var(--mu)}
+.dhdr{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;margin-bottom:2px}
+.dhdr .px{font-size:22px;font-weight:800}
+#sq{width:100%}
+.mq{overflow:hidden;border:1px solid var(--bd);border-radius:12px;background:#06131f;white-space:nowrap;height:38px}
+.mq #mq{display:inline-block;padding-left:100%;animation:mq var(--dur,120s) linear infinite;line-height:38px}
+.mq:hover #mq{animation-play-state:paused}@keyframes mq{to{transform:translateX(-100%)}}
+.mq .it{margin-right:30px;cursor:pointer;font-size:12.5px;transition:.15s}.mq .it b{margin-right:5px}.mq .it:hover,.mq .it.on{color:var(--tl)}.mq .it.on b{text-decoration:underline}
+#selbar{display:flex;flex-direction:column;gap:10px;border-color:#14d6c055;box-shadow:0 0 24px #14d6c014}
+.sh{display:flex;flex-wrap:wrap;gap:12px;align-items:center}.sh input{width:104px;font-weight:800;font-size:15px;text-transform:uppercase}.sh .px{font-size:22px;font-weight:800}
+.sh .sp{flex:1}.sms{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:8px}
+.sm{background:#0a1a2a;border:1px solid var(--bd);border-radius:10px;padding:7px 10px;transition:.2s}.sm:hover{border-color:var(--tl);transform:translateY(-2px)}
+.sm span{display:block;color:var(--mu);font-size:10.5px}.sm b{font-size:15px;font-variant-numeric:tabular-nums}
+.fx{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}.fx span{position:absolute;bottom:-50px;opacity:.16;animation:fl linear infinite}@keyframes fl{to{transform:translateY(-115vh) rotate(25deg)}}
+nav{z-index:1}main{position:relative;z-index:1}
+.mas{display:inline-block;font-size:30px;margin-right:8px;animation:bob 2.2s ease-in-out infinite;vertical-align:middle}@keyframes bob{50%{transform:translateY(-6px) rotate(-8deg)}}
+.lg{font-size:20px}.k .ic{position:absolute;right:10px;top:8px;font-size:22px;animation:bob 3s ease-in-out infinite;animation-delay:calc(var(--i)*.2s)}
+.k:hover .ic{animation:spin .6s}@keyframes spin{to{transform:rotate(360deg) scale(1.3)}}
+nav a:hover{transform:translateX(4px)}button:hover{transform:translateY(-2px)}button:active{transform:scale(.95)}
+.BUY,.hot{animation:pulse 1.8s infinite}@keyframes pulse{50%{box-shadow:0 0 0 4px #1fe58f33}}
+.idx{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border-width:2px}.idx .big{font-size:38px;animation:bob 2s infinite}.idx.on{border-color:var(--gr)}.idx.off{border-color:var(--rd)}.idx h2{margin:0}
+details.card summary{cursor:pointer;font-weight:700;color:var(--tx)}details.card td,details.card th{text-align:left;white-space:normal}
+@media(max-width:800px){.two{grid-template-columns:1fr}.slist{max-height:280px}body{flex-direction:column}nav{width:100%;height:auto;position:static;flex-direction:row;overflow-x:auto;padding:8px}.logo,.eng{display:none}nav a{white-space:nowrap}}
+</style></head><body>
+<div id="prog"></div>
+<nav><div class="logo"><div class="lg">🐂</div>KIYAAAA</div>
+<a data-v="dash" class="on">📊 Dashboard</a><a data-v="cari">🔍 Cari Saham</a><a data-v="sig">⚡ Sinyal &amp; Posisi</a><a data-v="hist">🕘 Riwayat Trade</a><a data-v="map">🗺 Peta Performa</a><a data-v="eq">📈 Equity Curve</a>
+<div class="eng"><span class="dot"></span>Engine Active</div></nav>
+<main>
+<div class="mq"><div id="mq"></div></div>
+<div class="card" id="selbar" style="display:none"></div><datalist id="tkl"></datalist>
+<div class="card hdr"><div><span class="mas">🚀</span><h1>KIYAAAA</h1><span class="bdg" id="bdg">BREAKOUT TREND FOLLOWING v2 · KOMPAS100</span>
+<div class="mu" style="margin-top:6px"><span id="stt">● Belum dimuat</span></div></div>
+<div class="btns"><button id="bUp">📂 Upload JSON</button><button class="pri" id="bYf">🌐 Harga Yahoo</button><button id="bMs" title="Muat ulang hanya simbol yang gagal / cache lama, satu per satu pelan-pelan">🩹 Muat yang Gagal</button><button id="bDm">🎲 Data Dummy</button><button id="bRc">🔄 Hitung Ulang</button><input type="file" id="fl" accept=".json" hidden></div></div>
+<div class="card note">💡 File HTML ini <b>berdiri sendiri</b> — cukup dibuka langsung di browser, tidak perlu server/Node.js. Harga harian KOMPAS100 diambil dari <b>Yahoo Finance</b> lewat proxy CORS publik langsung dari browser. Klik <b>Harga Yahoo</b> untuk memuat ulang; proxy gratis ini kadang lambat/limit, jadi kalau ada simbol yang gagal, klik lagi beberapa saat kemudian. Bisa juga <b>Upload JSON</b> sendiri; kalau Yahoo/proxy gagal total, dashboard memakai data tersimpan terakhir atau <b>data dummy</b>. Pilih strategi di kolom <b>Strategi</b>; aturan lengkap strategi yang sedang aktif ada di kartu <b>Aturan Strategi</b> di bawah ini, dan hanya parameter yang relevan yang ditampilkan. Semua strategi dieksekusi di <b>open bar berikutnya</b>, dibatasi <b>maks posisi</b> dan <b>ukuran posisi</b> per saham, dengan komisi per sisi dan <b>stop loss</b> serta <b>trailing stop</b> yang bisa diatur (isi 0 untuk mematikan). Bila beberapa sinyal muncul bersamaan, prioritas diberikan ke <b>ROC 60 hari</b> terkuat. Seperti <code>ExRem</code> di AFL: setelah kena stop, entry baru baru boleh setelah muncul sinyal Sell strategi tersebut.</div>
+<div class="card par"><label>Strategi <select id="strat"><option value="brk" selected>Breakout</option><option value="rsi">RSI Cross</option><option value="rss">RSI + S/R</option><option value="rst">RSI + S/R + Time Stop</option><option value="mr">Mean Reversion (RSI2)</option></select></label><label>RSI Per <input id="rsip" type="number" value="14" min="2" max="50"></label><label>RSI Level <input id="rsil" type="number" value="50"></label><label>S/R Oversold <input id="os" type="number" value="30"></label><label>S/R Overbought <input id="ob" type="number" value="70"></label><label>Lookback S/R <input id="sr" type="number" value="20" min="5"></label><label>Toleransi S/R % <input id="tol" type="number" value="1.5" step="0.1"></label><label>Sentuh dlm N bar <input id="tb" type="number" value="3" min="1"></label><label>Time stop (bar) <input id="tn" type="number" value="15" min="1"></label><label>Time stop hanya jika rugi <select id="tl"><option value="1" selected>Ya</option><option value="0">Tidak</option></select></label><label>MR RSI periode <input id="mrp" type="number" value="2" min="2" max="10"></label><label>MR beli jika RSI &lt; <input id="mro" type="number" value="10" min="1" max="50"></label><label>MR keluar di atas EMA <input id="mre" type="number" value="5" min="2" max="50"></label><label>MR time stop (bar) <input id="mrt" type="number" value="10" min="1"></label><label>Breakout HHV <input id="brk" type="number" value="20" min="5" max="100"></label><label>Exit LLV <input id="ext" type="number" value="15" min="5" max="100"></label><label>Vol × <input id="vm" type="number" value="1.5" step="0.1" min="0"></label><label>Max Ext × <input id="mxe" type="number" value="1.06" step="0.01" min="1"></label><label>SL % <input id="sl" type="number" value="8" min="0"></label><label>Trailing % <input id="trp" type="number" value="15" min="0"></label><label>Min Nilai (Rp jt) <input id="lq" type="number" value="5000" min="0" style="width:78px"></label><label>Maks Posisi <input id="mp" type="number" value="5" min="1" max="50"></label><label>Size % <input id="sz" type="number" value="20" min="1" max="100"></label><label>Komisi % <input id="cm" type="number" value="0.2" step="0.05" min="0"></label><label>Filter IHSG <select id="um"><option value="1" selected>Ya</option><option value="0">Tidak</option></select></label><label>Breakout <select id="ub"><option value="1" selected>Ya</option><option value="0">Tidak</option></select></label><label>Pullback <select id="pb"><option value="0" selected>Mati</option><option value="1">Aktif</option></select></label><label>Range <select id="rng"><option>2y</option><option selected>3y</option><option>5y</option></select></label><span class="mu" id="cnt" style="margin-left:auto"></span></div>
+<div id="view"></div>
+</main>
+<script>
+const TK="AADI ACES ADMR ADRO AKRA AMMN AMRT ANTM ARCI ARTO ASII BBCA BBNI BBRI BBTN BBYB BFIN BIPI BKSL BMRI BNBR BRIS BRMS BRPT BSDE BUKA BULL BUMI BUVA CBDK CMRY COIN CPIN CTRA CUAN DEWA DSNG ELSA EMAS EMTK ENRG ERAA ESSA EXCL GGRM GOTO HEAL HRTA HRUM ICBP IMPC INCO INDF INDY INET INKP ISAT ITMG JPFA JSMR KIJA KLBF KPIG LSIP MAPA MAPI MBMA MDKA MEDC MIKA MINA MYOR NCKL PANI PGAS PGEO PNLF PSAB PTBA PTRO PWON RAJA RATU RMKE SCMA SGER SMGR SMIL SMRA SSIA TAPG TINS TLKM TOBA TOWR TPIA UNTR UNVR WIFI WIRG".split(" ");
+const $=i=>document.getElementById(i);
+const S={raw:{},R:[],v:"dash",src:"",upd:null,busy:0,fl:"",pf:"all",sk:"net",sd:-1,sel:"",q:"",cf:"semua"};
+const f=(x,d=2)=>x==null||!isFinite(x)?"–":x.toLocaleString("id-ID",{minimumFractionDigits:d,maximumFractionDigits:d});
+const cl=x=>x>0?"p":x<0?"n":"";const pc=x=>x==null?"–":`<span class="${cl(x)}">${x>0?"+":""}${f(x)}%</span>`;
+const dt=d=>new Date(d*864e5).toLocaleDateString("id-ID",{day:"2-digit",month:"short",year:"2-digit"});
+const tick=p=>p<200?1:p<500?2:p<2000?5:p<5000?10:25;
+const rUp=x=>{const t=tick(x);return Math.ceil(x/t-1e-9)*t};
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+
+// ===== Breakout Trend Following =====
+const num=(id,d)=>{const v=parseFloat($(id).value);return isFinite(v)?v:d};
+const P=()=>({brk:num("brk",20),ext:num("ext",15),vm:num("vm",1.5),mxe:num("mxe",1.06),sl:num("sl",8),trp:num("trp",15),lq:num("lq",5000),mp:Math.max(1,num("mp",5)),sz:num("sz",20),cm:num("cm",.2),um:+$("um").value,ub:+$("ub").value,pb:+$("pb").value,strat:$("strat").value,rp:num("rsip",14),rl:num("rsil",50),os:num("os",30),ob:num("ob",70),sr:num("sr",20),tol:num("tol",1.5)/100,tb:num("tb",3),tn:num("tn",15),tl:+$("tl").value,mrp:num("mrp",2),mro:num("mro",10),mre:num("mre",5),mrt:num("mrt",10)});
+const ema=(a,p)=>{const k=2/(p+1),o=[a[0]];for(let i=1;i<a.length;i++)o.push(a[i]*k+o[i-1]*(1-k));return o};
+const avg=(i,n,fn)=>{let s=0;for(let j=i-n;j<i;j++)s+=fn(j);return s/n};
+const mx=(a,i,k)=>{let m=-Infinity;for(let j=i-k;j<i;j++)if(a[j]>m)m=a[j];return m},mn=(a,i,k)=>{let m=Infinity;for(let j=i-k;j<i;j++)if(a[j]<m)m=a[j];return m};
+// Filter pasar: true bila close IHSG > EMA50 IHSG (tanpa data IHSG = filter nonaktif)
+function idxFlags(d){const I=S.idx;if(!I||I.c.length<=50)return d.map(()=>true);
+ const e=ema(I.c,50),o=[];let j=0;for(let i=0;i<d.length;i++){while(j+1<I.d.length&&I.d[j+1]<=d[i])j++;o.push(I.d[j]<=d[i]&&j>=50?I.c[j]>e[j]:false)}return o}
+function rsi(c,p){const o=new Array(c.length).fill(null);let G=0,L=0;if(c.length<=p)return{o,G,L};
+ for(let i=1;i<=p;i++){const d=c[i]-c[i-1];d>0?G+=d:L-=d}G/=p;L/=p;o[p]=L?100-100/(1+G/L):100;
+ for(let i=p+1;i<c.length;i++){const d=c[i]-c[i-1];G=(G*(p-1)+(d>0?d:0))/p;L=(L*(p-1)+(d<0?-d:0))/p;o[i]=L?100-100/(1+G/L):100}return{o,G,L}}
+function analyze(t,D,p){
+ const{d,o,c}=D,n=c.length,h=D.h||c.map((x,i)=>Math.max(x,o[i])),l=D.l||c.map((x,i)=>Math.min(x,o[i])),v=D.v,hv=!!v,cmm=p.cm/100;
+ const e20=ema(c,20),e50=ema(c,50),e200=ema(c,200),ix=idxFlags(d),sig=new Array(n).fill(0),sc=new Array(n).fill(null),M=[],W0=Math.max(p.brk,p.ext,60),R=p.strat=="mr"?rsi(c,p.mrp):p.strat!="brk"?rsi(c,p.rp):null,MR=p.strat=="mr",eX=MR?ema(c,p.mre):null,SR=p.strat=="rss"||p.strat=="rst",TS=p.strat=="rst";
+ let supA=null,resA=null;if(SR){supA=new Array(n).fill(null);resA=new Array(n).fill(null);for(let i=p.sr;i<n;i++){let a=Infinity,b=-Infinity;for(let k=i-p.sr;k<i;k++){if(l[k]<a)a=l[k];if(h[k]>b)b=h[k]}supA[i]=a;resA[i]=b}}
+ const mnTo=i=>{let m=Infinity;for(let k=Math.max(0,i-p.tb+1);k<=i;k++)if(l[k]<m)m=l[k];return m},mxTo=i=>{let m=-Infinity;for(let k=Math.max(0,i-p.tb+1);k<=i;k++)if(h[k]>m)m=h[k];return m};
+ for(let i=0;i<n;i++){
+  const ok=i>=W0,va=hv&&i>=20?avg(i,20,j=>v[j]):null;
+  M.push({ok,va,tn:i>=210&&c[i]>e50[i]&&e50[i]>e200[i]&&e200[i]>e200[i-10],
+   vr:va?v[i]/va:null,
+   lq:hv?(i>=19&&avg(i+1,20,j=>c[j]*v[j])>p.lq*1e6):true,
+   cp:(c[i]-l[i])/(h[i]-l[i]+.0001),roc:i>=60?(c[i]/c[i-60]-1)*100:null,
+   hh:ok?mx(h,i,p.brk):null,ll:ok?mn(l,i,p.ext):null})}
+ // Sinyal setara ExRem: state tetap 'long' sampai ada Sell, walau posisi sudah keluar kena stop
+ let pos=0,bb=0;const sw=new Array(n).fill("");
+ for(let i=1;i<n;i++){const m=M[i];if(R){const r=R.o;if(r[i]==null||r[i-1]==null)continue;
+   if(MR){if(!pos){if(i>=210&&c[i]>e200[i]&&r[i]<p.mro&&m.lq&&(!p.um||ix[i])){sig[i]=1;sc[i]=m.roc??0;pos=1;bb=i}}
+    else if(c[i]>eX[i]||(i>bb&&i-bb>=p.mrt)){sig[i]=-1;sw[i]=c[i]>eX[i]?"EMA":"TIME";pos=0}
+    continue}
+   if(SR){if(supA[i]==null)continue;const tS=mnTo(i)<=supA[i]*(1+p.tol),tR=mxTo(i)>=resA[i]*(1-p.tol);
+    if(!pos){if(r[i]>p.os&&r[i-1]<=p.os&&tS&&c[i]>supA[i]&&m.lq&&(!p.um||ix[i])){sig[i]=1;sc[i]=m.roc??0;pos=1;bb=i}}
+    else{const a=r[i]<p.ob&&r[i-1]>=p.ob&&tR,b2=c[i]<supA[i]*(1-p.tol),ts=TS&&i>bb&&i-bb>=p.tn&&(!p.tl||c[i]<=o[bb+1]);if(a||b2||ts){sig[i]=-1;sw[i]=b2?"BREAKDOWN":a?"RES":"TIME";pos=0}}
+    continue}
+   if(!pos){if(r[i]>p.rl&&r[i-1]<=p.rl&&m.lq&&(!p.um||ix[i])){sig[i]=1;sc[i]=m.roc??0;pos=1}}else if(r[i]<p.rl&&r[i-1]>=p.rl){sig[i]=-1;sw[i]="RSI";pos=0}continue}if(!m.ok)continue;
+  if(!pos){const base=m.tn&&m.lq&&(!p.um||ix[i]),
+    bo=p.ub&&base&&c[i]>m.hh&&c[i]<m.hh*p.mxe&&(m.va==null||v[i]>p.vm*m.va)&&c[i]>o[i]&&m.cp>.7,
+    pb=p.pb&&base&&l[i]<=e20[i]&&c[i]>e20[i]&&c[i]>o[i]&&e20[i]>e50[i]&&m.cp>.6;
+   if(bo||pb){sig[i]=1;sc[i]=m.roc??0;pos=1}}
+  else if(c[i]<m.ll){sig[i]=-1;pos=0}}
+ // Simulasi trade: entry open bar berikutnya; exit = sinyal Sell (open berikutnya) atau stop loss/trailing intrabar
+ const tr=[],stopLv=(en,pk)=>Math.max(p.sl>0?en.p*(1-p.sl/100):0,p.trp>0?pk*(1-p.trp/100):0),net=(ep,xp)=>(xp*(1-cmm)/(ep*(1+cmm))-1)*100;
+ let en=null,pk=0;
+ for(let j=0;j<n;j++){
+  if(j>0&&sig[j-1]==1&&!en){en={i:j,p:o[j],s:sc[j-1]};pk=o[j]}
+  if(!en)continue;
+  let x=null,why="";
+  if(j>0&&sig[j-1]==-1&&j>en.i){x=o[j];why=sw[j-1]||"LLV"}
+  else{const lv=stopLv(en,pk);if(lv>0&&l[j]<=lv){x=Math.min(o[j],lv);why=(p.sl>0&&lv<=en.p*(1-p.sl/100)+1e-9)?"SL":"TRAIL"}}
+  if(x!=null){tr.push({t,inD:d[en.i],outD:d[j],ep:en.p,xp:x,s:en.s,why,pnl:net(en.p,x),bars:j-en.i});en=null}
+  else pk=Math.max(pk,h[j])}
+ let act=null,lvA=0;
+ if(en){lvA=stopLv(en,pk);act={t,inD:d[en.i],ep:en.p,s:en.s,last:c[n-1],pnl:net(en.p,c[n-1]),bars:n-1-en.i}}
+ else if(sig[n-1]==1)act={t,pend:1,s:sc[n-1],last:c[n-1],bars:0};
+ const sigs=[];for(let i=Math.max(0,n-7);i<n;i++)if(sig[i])sigs.push({t,i,s:sig[i],d:d[i],c:c[i],r:M[i].roc,today:i==n-1});
+ const c0=c[n-1],mL=M[n-1];let buyTrig=null,sellTrig=null;
+ if(R&&MR){const r=R.o,G=R.G,L=R.L,rv=r[n-1],tk=tick(c0);
+  if(rv!=null&&!act&&!pos&&rv>=p.mro&&n>210&&c0>e200[n-1]&&mL.lq&&(!p.um||ix[n-1])){const RS=p.mro/(100-p.mro),x=G*(p.mrp-1)/RS-L*(p.mrp-1);
+   if(x>0){const px=c0-x,tx=tick(px);let T=Math.floor(px/tx-1e-9)*tx;if(T>=px)T-=tx;if(T>e200[n-1]&&T>0)buyTrig={p:T,dist:(T/c0-1)*100}}}
+  if(act&&!act.pend){const S2=rUp(lvA);if(S2>0&&S2<c0)sellTrig={p:S2,dist:(1-S2/c0)*100}}
+ }else if(R&&SR){const r=R.o,G=R.G,L=R.L,rv=r[n-1],tk=tick(c0);let sN=Infinity;
+  for(let k=Math.max(0,n-p.sr);k<n;k++)if(l[k]<sN)sN=l[k];
+  if(rv!=null&&!act&&!pos&&rv<=p.os&&mL.lq&&(!p.um||ix[n-1])){const RS=p.os/(100-p.os),x=(p.rp-1)*(RS*L-G);
+   if(x>0){const px=c0+x;let T=Math.ceil(px/tk-1e-9)*tk;if(T<=px)T+=tk;let mnT=Infinity;for(let k=Math.max(0,n-Math.max(p.tb-1,1));k<n;k++)if(l[k]<mnT)mnT=l[k];
+    if(mnT<=sN*(1+p.tol)&&T>sN)buyTrig={p:T,dist:(T/c0-1)*100}}}
+  if(act&&!act.pend){const sr0=sN*(1-p.tol);let bt=0;if(sr0<c0){bt=Math.floor(sr0/tk+1e-9)*tk;if(bt>=sr0)bt-=tk}
+   const S2=Math.max(bt>0?bt:0,rUp(lvA));if(S2>0&&S2<c0)sellTrig={p:S2,dist:(1-S2/c0)*100}}
+ }else if(R){const r=R.o,G=R.G,L=R.L,rv=r[n-1],RS=p.rl/(100-p.rl),tk=tick(c0),rl=p.rl,per=p.rp;let rt=0;
+  if(rv!=null&&!act&&!pos&&rv<rl&&mL.lq&&(!p.um||ix[n-1])){const x=(per-1)*(RS*L-G),P=c0+x;if(x>0){let T=Math.ceil(P/tk-1e-9)*tk;if(T<=P)T+=tk;buyTrig={p:T,dist:(T/c0-1)*100}}}
+  if(act&&!act.pend){if(rv!=null&&rv>rl){const x=(G*(per-1))/RS-L*(per-1);if(x>0){const P=c0-x;let T=Math.floor(P/tk+1e-9)*tk;if(T>=P)T-=tk;if(T>0)rt=T}}
+   const S2=Math.max(rt,rUp(lvA));if(S2>0&&S2<c0)sellTrig={p:S2,dist:(1-S2/c0)*100}}
+ }else{
+ if(!act&&mL.ok&&mL.tn&&mL.lq&&(!p.um||ix[n-1])&&!pos){const lv=Math.max(...h.slice(n-p.brk)),T=rUp(lv+tick(lv));if(T<lv*p.mxe)buyTrig={p:T,dist:(T/c0-1)*100}}
+ if(act&&!act.pend){const L=rUp(Math.max(Math.min(...l.slice(n-p.ext)),lvA));if(L<c0)sellTrig={p:L,dist:(1-L/c0)*100}}
+ }
+ const st=sig[n-1]==1?"BUY":sig[n-1]==-1?"SELL":act?"LONG":"FLAT";
+ const chg=n>1?(c0/c[n-2]-1)*100:null;
+ return{t,d,c,e20,e50,e200,hp:M.map((m,i)=>m.hh??c[i]),sig,tr,act,sigs,st,last:c0,chg,rsi:R?R.o[n-1]:null,roc:mL.roc,vr:mL.vr,cp:mL.cp,tn:mL.tn,buyTrig,sellTrig,stats:stats(tr),lastD:d[n-1]}}
+// Seleksi portofolio: batasi maks posisi, prioritas ROC60 terkuat bila sinyal muncul bersamaan
+function cmpRun(strat,p){const oR=S.R,p2={...p,strat};
+ S.R=Object.keys(S.raw).filter(t=>S.raw[t].c&&S.raw[t].c.length>60).map(t=>analyze(t,S.raw[t],p2));select();const s=port();S.R=oR;return s}
+function select(){
+ const E=[];S.R.forEach(r=>{r.tr.forEach(x=>{x.acc=0;E.push(x)});if(r.act&&!r.act.pend){r.act.acc=0;r.act.outD=Infinity;E.push(r.act)}});
+ E.sort((a,b)=>a.inD-b.inD||(b.s??-1e9)-(a.s??-1e9));const open=[];
+ E.forEach(x=>{for(let k=open.length-1;k>=0;k--)if(open[k].outD<=x.inD)open.splice(k,1);if(open.length<S.mp){x.acc=1;open.push(x)}})}
+
+function stats(tr){
+ const w=tr.filter(x=>x.pnl>0),l=tr.filter(x=>x.pnl<=0),m=a=>a.length?a.reduce((s,x)=>s+x,0)/a.length:null;
+ const gp=w.reduce((s,x)=>s+x.pnl,0),gl=-l.reduce((s,x)=>s+x.pnl,0);
+ let eq=1,pk=1,dd=0;tr.slice().sort((a,b)=>a.outD-b.outD).forEach(x=>{eq*=1+x.pnl/100;pk=Math.max(pk,eq);dd=Math.max(dd,(pk-eq)/pk*100)});
+ return{n:tr.length,net:tr.length?(eq-1)*100:null,avg:m(tr.map(x=>x.pnl)),pf:gl>0?gp/gl:gp>0?Infinity:null,aw:m(w.map(x=>x.pnl)),al:m(l.map(x=>x.pnl)),
+  wr:tr.length?w.length/tr.length*100:null,dd:tr.length?dd:null,bw:m(w.map(x=>x.bars)),bl:m(l.map(x=>x.bars))}}
+// Portofolio: tiap posisi = Size% dari ekuitas saat entry (PositionSize -20), hanya trade yang lolos seleksi maks posisi
+function port(){
+ const A=S.R.flatMap(r=>r.tr).filter(x=>x.acc),s=stats(A),ev=[],pts=[];
+ A.forEach(x=>{x.sz=null;ev.push({d:x.inD,k:1,x});ev.push({d:x.outD,k:0,x})});
+ ev.sort((a,b)=>a.d-b.d||a.k-b.k);
+ let eq=1,pk=1,dd=0;
+ ev.forEach(e=>{const x=e.x;if(e.k){if(x.sz==null)x.sz=S.p.sz/100*eq}else{if(x.sz==null)x.sz=S.p.sz/100*eq;eq+=x.sz*x.pnl/100;pk=Math.max(pk,eq);const d=(pk-eq)/pk*100;dd=Math.max(dd,d);pts.push({d:x.outD,eq,dd:d})}});
+ s.net=A.length?(eq-1)*100:null;s.dd=A.length?dd:null;s.pts=pts;
+ const t0=A.length?Math.min(...A.map(x=>x.inD)):0,t1=A.length?Math.max(...A.map(x=>x.outD)):0,yrs=A.length?(t1-t0)/365.25:0;
+ s.yrs=yrs;s.eqEnd=eq;s.cagr=A.length&&yrs>=.25&&eq>0?(Math.pow(eq,1/yrs)-1)*100:null;s.calmar=s.cagr!=null&&s.dd>0?s.cagr/s.dd:null;return s}
+
+// ===== Data =====
+function recompute(){
+ const p=P();S.p=p;S.mp=p.mp;
+ S.R=Object.keys(S.raw).filter(t=>S.raw[t].c&&S.raw[t].c.length>60).map(t=>analyze(t,S.raw[t],p)).sort((a,b)=>a.t<b.t?-1:1);
+ select();{S.cmp={};["brk","rsi","rss","rst","mr"].forEach(k=>{S.cmp[k]=k==p.strat?port():cmpRun(k,p)})}
+ if(S.idx&&S.idx.c.length>50){const e=ema(S.idx.c,50),k=S.idx.c.length-1,c=S.idx.c[k];S.ix={c,e:e[k],ok:c>e[k],dist:(c/e[k]-1)*100}}else S.ix=null;
+ const ld=S.R.length?Math.max(...S.R.map(r=>r.lastD)):null;
+ if(!S.R.find(x=>x.t==S.sel)){const f0=S.R.find(x=>x.act)||S.R[0];S.sel=f0?f0.t:""}
+ mq();$("bdg").textContent=({brk:"BREAKOUT TREND FOLLOWING v2",rsi:"RSI CROSS",rss:"RSI + SUPPORT/RESISTANCE",rst:"RSI + S/R + TIME STOP",mr:"MEAN REVERSION (RSI2)"})[p.strat]+" · KOMPAS100";
+ $("cnt").textContent=`${S.R.length} simbol dimuat`;
+ $("stt").innerHTML=`<span class="dot" style="display:inline-block;margin-right:6px"></span>SYSTEM ACTIVE • UPDATE ${S.src||"–"}${ld?` (data terakhir ${dt(ld)})`:""}`;
+ draw()}
+// ===== Yahoo Finance langsung dari browser lewat CORS proxy publik =====
+// Yahoo tidak mengizinkan fetch() lintas-origin dari browser (tidak ada header CORS di respons-nya),
+// jadi diteruskan lewat proxy publik yang MENAMBAHKAN header CORS. Ini murni file HTML statis,
+// tidak butuh server/Node.js sendiri - tapi proxy publik gratis begini kadang lambat/limit/down,
+// makanya dicoba beberapa alternatif berurutan per simbol sebelum menyerah.
+const PROXIES=[
+ u=>`https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+ u=>`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`,
+ u=>`https://corsproxy.io/?url=${encodeURIComponent(u)}`,
+];
+async function fetchT(url,ms){
+ // Catatan: sengaja TIDAK pakai AbortController/AbortSignal di sini. Beberapa ekstensi
+ // browser (ad-blocker/antivirus/password-manager) menyadap fetch() dan meneruskannya lewat
+ // postMessage - dan AbortSignal tidak bisa dikirim lewat postMessage, jadi selalu error
+ // "Failed to execute 'postMessage': AbortSignal object could not be cloned". Promise.race
+ // di bawah ini tetap memberi efek timeout tanpa pernah menyentuh AbortSignal.
+ return Promise.race([
+  fetch(url),
+  new Promise((_,rej)=>setTimeout(()=>rej(new Error("timeout")),ms))
+ ]);
+}
+async function oneYahoo(t,range,full,bust){
+ let err="";
+ if(location.protocol.startsWith("http")){
+  try{const r=await fetchT(`/api/chart?s=${encodeURIComponent(t)}&range=${range}${bust?"&_="+Date.now()+bust:""}`,15000);
+   if(r.ok){const j=await r.json();if(j&&j.d&&j.c&&j.c.length)return{ok:1,v:j}}else err="API HTTP "+r.status}catch(e){err=e.message}}
+ for(const host of (full?["query1","query2"]:["query1"]))for(const mk of PROXIES){
+  const target=`https://${host}.finance.yahoo.com/v8/finance/chart/${full?t.replace(/\^/g,"%5E"):t+".JK"}?range=${range}&interval=1d${bust?"&_="+Date.now()+bust:""}`;
+  try{
+   const r=await fetchT(mk(target),9000);
+   if(r.status==429){err="rate limited (proxy)";continue}
+   if(!r.ok){err="HTTP "+r.status;continue}
+   const j=await r.json(),x=j.chart&&j.chart.result&&j.chart.result[0];
+   if(!x||!x.timestamp)throw new Error("data kosong");
+   const q=x.indicators.quote[0],d=[],o=[],h=[],l=[],c=[],v=[];
+   x.timestamp.forEach((s,i)=>{if(q.close[i]!=null&&q.open[i]!=null&&q.high[i]!=null&&q.low[i]!=null){d.push(Math.floor(s/86400));o.push(+q.open[i].toFixed(2));h.push(+q.high[i].toFixed(2));l.push(+q.low[i].toFixed(2));c.push(+q.close[i].toFixed(2));v.push(q.volume[i]||0)}});
+   if(!c.length)throw new Error("tidak ada bar");
+   return{ok:1,v:{d,o,h,l,c,v}};
+  }catch(e){err=e.message}
+ }
+ return{ok:0,err};
+}
+async function yahooMissing(){
+ const todo=S.ds?[...S.ds.miss,...S.ds.cache]:[];
+ if(!todo.length){$("stt").textContent="● Tidak ada simbol gagal atau cache lama yang perlu dimuat ulang.";return}
+ const rng=$("rng").value;let got=0;
+ for(let i=0;i<todo.length;i++){const t=todo[i];$("stt").textContent=`● Memuat ulang ${t} (${i+1}/${todo.length})…`;
+  const r=await oneYahoo(t,rng,0,i+1);
+  if(r.ok){S.raw[t]=r.v;got++;S.ds.miss=S.ds.miss.filter(x=>x!=t);S.ds.cache=S.ds.cache.filter(x=>x!=t);S.ds.upd.push(t)}
+  await sleep(700)}
+ if(!S.idx){const ri=await oneYahoo("^JKSE",rng,1,9);if(ri.ok)S.idx=ri.v}
+ try{localStorage.setItem("kiy_last",JSON.stringify({raw:S.raw,idx:S.idx,t:Date.now()}))}catch(e){}
+ S.src=`Yahoo Finance · ${got}/${todo.length} simbol berhasil dimuat ulang`;recompute()}
+async function yahoo(){
+ if(S.busy)return;S.busy=1;$("bYf").disabled=true;
+ const rng=$("rng").value;
+ let ok=0,err=0,done=0,errMsg="";const raw={},errors={},q=TK.slice();
+ $("stt").textContent="● Memuat harga Yahoo lewat proxy publik…";
+ let idx=null;{const ri=await oneYahoo("^JKSE",rng,1);if(ri.ok)idx=ri.v}
+ // Konkurensi rendah (3) + jeda antar-request supaya tidak langsung kena limit proxy gratis.
+ await Promise.all(Array.from({length:3},async()=>{
+  while(q.length){const t=q.shift();
+   const r=await oneYahoo(t,rng);
+   if(r.ok){raw[t]=r.v;ok++}else{err++;errMsg=r.err;errors[t]=r.err}
+   $("prog").style.width=++done/TK.length*100+"%";
+   await sleep(200);
+  }}));
+ // Retry sekali untuk yang gagal (banyak kegagalan proxy publik cuma sesaat/rate-limit).
+ for(let rd=0;rd<3;rd++){
+  if(!idx){const ri=await oneYahoo("^JKSE",rng,1);if(ri.ok)idx=ri.v}
+  const q2=TK.filter(t=>!raw[t]);if(!q2.length)break;$("stt").textContent=`● Retry ronde ${rd+1}/3 — ${q2.length} simbol belum termuat…`;
+  await Promise.all(Array.from({length:3},async()=>{
+   while(q2.length){const t=q2.shift();
+    const r=await oneYahoo(t,rng,0,rd+1);
+    if(r.ok){raw[t]=r.v;ok++;err--}else errMsg=r.err;
+    await sleep(300);
+   }}));
+ }
+ setTimeout(()=>$("prog").style.width=0,500);$("bYf").disabled=false;S.busy=0;
+ if(ok){let l0=null,stale=0;const upd=Object.keys(raw),cch=[];try{l0=JSON.parse(localStorage.getItem("kiy_last"))}catch(e){}
+  if(l0&&l0.raw)TK.forEach(t=>{if(!raw[t]&&l0.raw[t]){raw[t]=l0.raw[t];stale++;cch.push(t)}});
+  const miss=TK.filter(t=>!raw[t]).length;S.ds={upd,cache:cch,miss:TK.filter(t=>!raw[t])};S.raw=raw;if(!idx&&l0&&l0.idx)idx=l0.idx;if(idx)S.idx=idx;
+  S.src=`Yahoo Finance`+(idx?" · IHSG ✓":" · IHSG gagal → filter pasar nonaktif")+(stale?` — ${stale} simbol pakai cache lama`:"")+(miss?` — ⚠ ${miss} simbol TANPA data, hasil tidak lengkap`:" — semua simbol lengkap");try{localStorage.setItem("kiy_last",JSON.stringify({raw,idx:S.idx,t:Date.now()}))}catch(e){}recompute()}
+ else{let last=null;try{last=JSON.parse(localStorage.getItem("kiy_last"))}catch(e){}
+  if(last){S.ds={upd:[],cache:Object.keys(last.raw),miss:TK.filter(t=>!last.raw[t])};S.raw=last.raw;S.idx=last.idx||null;S.src=`data tersimpan (${new Date(last.t).toLocaleString("id-ID")}) — Yahoo/proxy gagal`;recompute()}
+  else{$("stt").innerHTML=`<span class="n">✖ Yahoo gagal lewat semua proxy (${errMsg||"?"}).</span> Coba klik <b>Harga Yahoo</b> lagi sebentar lagi (proxy publik sering sibuk), atau pakai Upload JSON / Data Dummy.`}}}
+function dummy(){
+ let sd=42;const rnd=()=>(sd=(sd*1664525+1013904223)%4294967296)/4294967296,rr=x=>Math.round(x/tick(x))*tick(x),raw={},n=750,d0=Math.floor(Date.now()/864e5)-n*1.45|0;let D0=null;
+ TK.forEach(t=>{let p=200+rnd()*6000,d=[],o=[],h=[],l=[],c=[],vv=[],v=0,day=d0;const dr=(rnd()-.42)*.0016,bv=2e6+rnd()*4e7;
+  for(let i=0;i<n;i++){day++;while([0,6].includes(new Date(day*864e5).getUTCDay()))day++;
+   v=v*.15+(rnd()-.5)*.012;const nx=Math.max(50,p*(1+v+dr+(rnd()-.495)*.03)),op=rr(p),cc=rr(nx);
+   d.push(day);o.push(op);c.push(cc);h.push(rr(Math.max(op,cc)*(1+rnd()*.012)));l.push(rr(Math.min(op,cc)*(1-rnd()*.012)));
+   vv.push(Math.round(bv*(.5+rnd())*(Math.abs(nx/p-1)>.02?2:1)));p=nx}
+  if(!D0)D0=d;raw[t]={d,o,h,l,c,v:vv}});
+ let x=6000;const ic=D0.map(()=>(x*=1+.0004+(rnd()-.5)*.016,+x.toFixed(2)));
+ S.ds=null;S.raw=raw;S.idx={d:D0,c:ic};S.src="Data Dummy (simulasi)";recompute()}
+function upload(file){const fr=new FileReader();fr.onload=()=>{try{const j=JSON.parse(fr.result),src=j.data||j,raw={};
+  S.idx=null;Object.keys(src).forEach(t=>{const x=src[t];let d=x.d||x.ts;if(!d||!x.c)return;if(!x.d)d=d.map(v=>Math.floor(v>1e11?v/864e5:v/86400));const k=t.replace(".JK","");if(/^(\^JKSE|IHSG|JKSE)$/i.test(k)){S.idx={d,c:x.c};return}raw[k]={d,o:x.o||x.c,c:x.c,h:x.h,l:x.l,v:x.v}});
+  if(!Object.keys(raw).length)throw 0;S.ds=null;S.raw=raw;S.src="Upload JSON";recompute()}catch(e){alert("Format JSON tidak dikenali. Gunakan {TICKER:{d:[hari],o:[...],c:[...]}} atau {ts:[...]}.")}};fr.readAsText(file)}
+
+// ===== Render =====
+function cu(el,v,fm){const a=isFinite(el._v)?el._v:0;el._v=v;if(!isFinite(v)){el.textContent=fm(v);return}const t0=performance.now();(function s(t){const p=Math.min(1,(t-t0)/800),e=1-Math.pow(1-p,3);el.textContent=fm(a+(v-a)*e);if(p<1)requestAnimationFrame(s)})(t0)}
+const KI=["💵","🧮","⚖️","🏆","🩹","🎯","🌊","⏱️","⌛"];
+const KD=[["net","% Net Profit",v=>f(v)+"%",1],["avg","AVG PNL",v=>f(v)+"%",1],["pf","Profit Factor",v=>v===Infinity?"∞":f(v),3],["aw","AVG Win",v=>f(v)+"%",1],["al","AVG Loss",v=>f(v)+"%",1],["wr","Winning Rate",v=>f(v,1)+"%",0],["dd","Max % Drawdown",v=>f(v)+"%",2],["bw","AVG Win Bar Held",v=>f(v,1),0],["bl","AVG Loss Bar Held",v=>f(v,1),0]];
+const WHY={LLV:"Close < LLV",SL:"Stop loss",TRAIL:"Trailing stop",EMA:"Close > EMA target",TIME:"Time stop",BREAKDOWN:"Breakdown Support",RES:"RSI turun di Resistance",RSI:"RSI cross turun"};
+const rows=(a,fn)=>a.map((x,i)=>`<tr style="--i:${Math.min(i,25)}">${fn(x,i)}</tr>`).join("");
+function idxCard(){const x=S.ix;if(!x)return'<div class="card idx"><span class="big">🌐</span><div><h2>Filter Pasar IHSG</h2><div class="mu">Data IHSG tidak tersedia — filter pasar dinonaktifkan.</div></div></div>';
+ return`<div class="card idx ${x.ok?"on":"off"}"><span class="big">${x.ok?"🐂":"🐻"}</span><div><h2>Filter Pasar IHSG · ${x.ok?"RISK-ON":"RISK-OFF"}</h2><div class="mu">IHSG ${f(x.c,0)} vs EMA50 ${f(x.e,0)} (<span class="${cl(x.dist)}">${x.dist>0?"+":""}${f(x.dist)}%</span>) — ${x.ok?"entry breakout diizinkan":"entry baru ditahan sampai IHSG kembali di atas EMA50"}</div></div></div>`}
+function cmpCard(){const c=S.cmp,K=["brk","rsi","rss","rst","mr"],NM=["Breakout","RSI Cross","RSI + S/R","RSI + S/R + Time Stop","Mean Reversion (RSI2)"];if(!c||K.some(k=>!c[k]))return"";
+ const RW=[["Profit Factor","pf",v=>v===Infinity?"∞":f(v),1],["Return portofolio","net",v=>(v>=0?"+":"")+f(v)+"%",1],["CAGR","cagr",v=>(v>=0?"+":"")+f(v)+"%",1],["Max Drawdown","dd",v=>f(v)+"%",0],["Win Rate","wr",v=>f(v,1)+"%",1],["Jumlah Trade","n",v=>v,2],["Avg Win","aw",v=>f(v)+"%",1],["Avg Loss","al",v=>f(v)+"%",1]];
+ const win=(k,dir)=>{if(dir==2)return"";let best=null,bv=null;K.forEach(x=>{const v=c[x][k];if(v==null||!isFinite(v))return;if(bv==null||(dir==1?v>bv:v<bv)){bv=v;best=x}});return best};
+ const few=K.filter(k=>c[k].n<30).map(k=>NM[K.indexOf(k)]),inc=S.ds&&S.ds.miss.length;
+ return`<div class="card"><h2>⚖️ Perbandingan 5 Strategi — aturan main sama</h2><p class="sub">Semua memakai aturan yang sama: likuiditas, filter IHSG (jika aktif), stop loss ${S.p.sl}%, trailing ${S.p.trp}%, komisi ${S.p.cm}%/sisi, ${S.p.sz}% ekuitas per posisi, maks ${S.mp} posisi, ranking ROC60. Beda hanya sinyal beli/jual. Breakout memakai filter tren EMA dan volume; strategi RSI tidak.</p>
+ <div class="w" style="max-height:none"><table><thead><tr><th>Metrik</th>${NM.map(x=>`<th>${x}</th>`).join("")}</tr></thead><tbody>${RW.map(r=>{const w=win(r[1],r[3]);return`<tr><td><b>${r[0]}</b></td>${K.map(k=>{const v=c[k][r[1]];return`<td class="${w==k?"p":""}">${w==k?"🏆 ":""}${v==null?"–":r[2](v)}</td>`}).join("")}</tr>`}).join("")}</tbody></table></div>
+ ${few.length?`<p class="sub n">⚠ Kurang dari 30 trade: ${few.join(", ")} — PF belum stabil, jangan jadikan patokan.</p>`:""}${inc?'<p class="sub n">⚠ Data belum lengkap — perbandingan bisa berubah.</p>':""}</div>`}
+function dataCard(){const d=S.ds,T=TK.length,ld=S.R.length?Math.max(...S.R.map(r=>r.lastD)):null,old=ld?S.R.filter(r=>ld-r.lastD>3).length:0,
+ u=d?d.upd.length:S.R.length,c=d?d.cache.length:0,m=d?d.miss.length:Math.max(0,T-S.R.length);
+ return`<div class="card idx ${m?"off":c||old?"":"on"}"><span class="big">🗂️</span><div><h2>Status Data</h2><div class="mu">Universe <b>${T}</b> · Diperbarui <b class="p">${u}</b> · Cache lama <b>${c}</b> · Tanpa data <b class="${m?"n":""}">${m}</b>${m&&d?` (${d.miss.slice(0,12).join(", ")}${d.miss.length>12?"…":""})`:""} · Data terakhir <b>${ld?dt(ld):"–"}</b>${old?` · <span class="n">⚠ ${old} saham tertinggal &gt;3 hari</span>`:""}${m?` · <span class="n">⚠ hasil belum lengkap, jangan dibaca dulu</span>`:""}</div></div></div>`}
+const RL=[["EMA 20 (eFast)","20","Sinyal pullback — mati default; juga garis kuning di grafik"],["EMA 50 (eMid)","50","Filter tren menengah: harga di atasnya"],["EMA 200 (eSlow)","200","EMA50 &gt; EMA200 dan EMA200 naik vs 10 bar lalu"],["HHV (brkLen)","20 hari","Level breakout: tertinggi 20 hari sebelumnya"],["maxExt","1,06×","Tidak beli jika close sudah &gt;6% di atas level breakout (anti kejar harga)"],["LLV (exitLen)","15 hari","Exit jika close di bawah terendah 15 hari sebelumnya"],["Stop loss / Trailing","8% / 15%","Stop awal dari harga masuk, trailing dari harga tertinggi sejak masuk"],["Volume rata-rata","20 hari","Volume breakout &gt; 1,5× rata-rata; candle hijau (C&gt;O)"],["Nilai transaksi","Close×Vol, 20 hari","Likuiditas &gt; Rp5 miliar/hari"],["ClosePos","&gt; 70%","Close di 30% teratas range candle"],["ROC 60 (PositionScore)","60 hari","Ranking bila banyak sinyal; maks 5 posisi × 20%"],["EMA 50 IHSG (idxE50)","50","Filter pasar: beli hanya bila IHSG di atas EMA50"]];
+const rules=()=>S.p&&S.p.strat=="rsi"?`<details class="card note"><summary>📘 Aturan Strategi RSI Cross (klik untuk buka)</summary><p><b>BUY</b>: RSI Wilder memotong level ke atas, saham likuid, dan IHSG &gt; EMA50 (jika filter aktif). <b>SELL</b>: RSI memotong level ke bawah, stop loss, atau trailing stop. Eksekusi open bar berikutnya, ukuran posisi dan komisi sama dengan strategi Breakout.</p></details>`:S.p&&S.p.strat=="mr"?`<details class="card note"><summary>📘 Aturan Strategi Mean Reversion (RSI2)</summary><p><b>BUY</b>: close masih di atas EMA200 (tren besar naik), RSI(${S.p.mrp}) di bawah ${S.p.mro} (turun tajam), saham likuid, dan IHSG &gt; EMA50 (jika aktif). <b>SELL</b>: close kembali di atas EMA${S.p.mre}, atau ditahan ${S.p.mrt} bar. Ditambah stop loss ${S.p.sl}% dan trailing ${S.p.trp}% seperti strategi lain. Eksekusi open bar berikutnya. Pemicu Buy di tabel Pantauan = harga penutupan di bawah mana sinyal muncul.</p></details>`:S.p&&S.p.strat!="brk"?`<details class="card note"><summary>📘 Aturan Strategi RSI + Support/Resistance${S.p.strat=="rst"?" + Time Stop":""}</summary><p><b>BUY</b>: RSI naik menembus ${S.p.os} dari bawah, zona support ${S.p.sr} bar tersentuh dalam ${S.p.tb} bar terakhir, close masih di atas support, saham likuid, dan IHSG &gt; EMA50 (jika aktif). <b>SELL</b>: RSI turun dari ${S.p.ob} di zona resistance, close di bawah support dikurangi ${f(S.p.tol*100,1)}%${S.p.strat=="rst"?`, atau time stop ${S.p.tn} bar${S.p.tl?" (hanya jika belum untung)":""}`:""}. Ditambah stop loss ${S.p.sl}% dan trailing ${S.p.trp}% seperti Breakout. Eksekusi open bar berikutnya.</p></details>`:`<details class="card note"><summary>📘 Aturan Strategi (klik untuk buka)</summary><p><b>BUY</b>: tren saham naik + IHSG &gt; EMA50 + likuid + close &gt; HHV + volume kuat + close kuat. <b>SELL</b>: close &lt; LLV, stop loss 8%, atau trailing 15%. Eksekusi open bar berikutnya.</p><div class="w" style="max-height:none"><table><thead><tr><th>Indikator</th><th>Parameter</th><th>Fungsi</th></tr></thead><tbody>${RL.map(x=>`<tr><td><b>${x[0]}</b></td><td>${x[1]}</td><td>${x[2]}</td></tr>`).join("")}</tbody></table></div></details>`;
+function watch(){return S.R.filter(r=>r.buyTrig&&Math.abs(r.buyTrig.dist)<=6).sort((a,b)=>Math.abs(a.buyTrig.dist)-Math.abs(b.buyTrig.dist))}
+function searchTickers(){
+ const q=(S.q||"").trim().toUpperCase();
+ let a=q?S.R.filter(r=>r.t.includes(q)):S.R.slice();
+ if(S.cf=="sinyal")a=a.filter(r=>r.sigs.length);else if(S.cf=="posisi")a=a.filter(r=>r.act);
+ return a.sort((x,y)=>x.t<y.t?-1:1)}
+// Chart harga + marker segitiga BUY/SELL, mengikuti ~150 bar terakhir agar tetap terbaca.
+function priceChart(r){
+ const NB=150,n=r.d.length,from=Math.max(0,n-NB);
+ const c=r.c.slice(from),e1=r.e20.slice(from),e5=r.e50.slice(from),e2=r.e200.slice(from),hp=r.hp.slice(from),sig=r.sig.slice(from),W=760,H=260;
+ const mn0=Math.min(...c,...e5,...e2,...e1),mx0=Math.max(...c,...e5,...e2,...hp),pad=(mx0-mn0||mx0*.05||1)*.1,mn=mn0-pad,mx=mx0+pad;
+ const X=i=>c.length>1?i/(c.length-1)*W:W/2,Y=v=>H-20-(v-mn)/((mx-mn)||1)*(H-40);
+ const L=a=>"M"+a.map((v,i)=>X(i).toFixed(1)+" "+Y(v).toFixed(1)).join("L"),ln=L(c);
+ const marks=sig.map((s,i)=>{if(!s)return"";const x=X(i).toFixed(1),y=Y(c[i]);
+  return s>0?`<path d="M${x} ${(y+18).toFixed(1)} L${(x-6)} ${(y+28).toFixed(1)} L${(+x+6)} ${(y+28).toFixed(1)}Z" fill="#1fe58f"/>`
+            :`<path d="M${x} ${(y-18).toFixed(1)} L${(x-6)} ${(y-28).toFixed(1)} L${(+x+6)} ${(y-28).toFixed(1)}Z" fill="#ff6b81"/>`}).join("");
+ return `<svg viewBox="0 0 ${W} ${H}"><defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f8bff" stop-opacity=".32"/><stop offset="1" stop-color="#2f8bff" stop-opacity="0"/></linearGradient></defs>
+ ${[0,1,2,3].map(i=>`<line x1="0" x2="${W}" y1="${(20+i*(H-40)/3).toFixed(1)}" y2="${(20+i*(H-40)/3).toFixed(1)}" stroke="#153049" stroke-dasharray="3 5"/>`).join("")}
+ <path d="${ln}L${W} ${H}L0 ${H}Z" fill="url(#pg)"/><path class="ln" pathLength="1" d="${ln}" fill="none" stroke="#2f8bff" stroke-width="2.2"/>
+ <path d="${L(hp)}" fill="none" stroke="#14d6c0" stroke-width="1.2" stroke-dasharray="4 3"/><path d="${L(e1)}" fill="none" stroke="#ffd166" stroke-width="1.3"/><path d="${L(e5)}" fill="none" stroke="#ff9f6b" stroke-width="1.3"/><path d="${L(e2)}" fill="none" stroke="#ff6b6b" stroke-width="1.3"/>
+ ${marks}
+ <text x="4" y="14" fill="#7f9bb5" font-size="11">${f(mx0,0)}</text><text x="4" y="${H-6}" fill="#7f9bb5" font-size="11">${f(mn0,0)}</text></svg>
+ <p class="mu" style="margin:6px 2px 0;font-size:11px">Menampilkan ${c.length} bar terakhir · ▲ hijau = BUY breakout · ▼ merah = SELL (close &lt; LLV) · kuning = EMA20 · oranye = EMA50 · merah = EMA200 · aqua putus = level HHV</p>`}
+// ===== Ticker berjalan + panel Saham Terpilih =====
+function mq(){
+ const e=$("mq");e.innerHTML=S.R.map(r=>`<span class="it${r.t==S.sel?" on":""}" data-t="${r.t}"><b>${r.t}</b>${f(r.last,0)} <span class="${cl(r.chg)}">${r.chg==null?"":(r.chg>=0?"▲ ":"▼ ")+f(Math.abs(r.chg))+"%"}</span></span>`).join("");
+ e.style.setProperty("--dur",Math.max(40,S.R.length*1.6)+"s")}
+function pickSel(v){v=String(v).trim().toUpperCase().replace(".JK","");const i=$("ssel");if(i&&i.blur)i.blur();
+ if(S.R.find(x=>x.t==v))S.sel=v;if(S.v=="cari")draw();else renderSel()}
+function renderSel(){
+ const b=$("selbar"),r=S.R.find(x=>x.t==S.sel);
+ document.querySelectorAll("#mq .it").forEach(x=>x.classList.toggle("on",x.dataset.t==S.sel));
+ if(!r){b.style.display="none";return}
+ if(document.activeElement&&document.activeElement.id=="ssel")return;
+ b.style.display="";if($("tkl").dataset.n!=S.R.length){$("tkl").innerHTML=S.R.map(x=>`<option value="${x.t}">`).join("");$("tkl").dataset.n=S.R.length}
+ const s=r.stats,a=r.act;
+ const pos=a?(a.pend?"Sinyal BUY baru, eksekusi di open bar berikutnya":`Posisi aktif: masuk ${f(a.ep,0)} · Floating ${pc(a.pnl)} · ${a.bars} bar`):"Tidak ada posisi terbuka";
+ const trg=r.buyTrig?` · Breakout &gt; <b>${f(r.buyTrig.p,0)}</b> (<span class="p">${r.buyTrig.dist>0?"+":""}${f(r.buyTrig.dist)}%</span>)`:r.sellTrig?` · Exit jika close &lt; <b>${f(r.sellTrig.p,0)}</b> (<span class="n">-${f(r.sellTrig.dist)}%</span>)`:"";
+ const m=KD.map(k=>{const v=s[k[0]],c=v==null?"":k[3]==1?cl(v):k[3]==2?"n":k[3]==3?(v>=1?"p":"n"):"";
+  return`<div class="sm"><span>${k[1]}</span><b class="${c}">${v==null?"–":(k[0]=="net"&&v>0?"+":"")+k[2](v)}</b></div>`}).join("")+`<div class="sm"><span>Total Trade</span><b>${s.n}</b></div>`;
+ b.innerHTML=`<div class="sh"><span class="mu">Saham terpilih</span><input id="ssel" list="tkl" value="${r.t}" onchange="pickSel(this.value)" onfocus="this.select()" autocomplete="off">
+  <span class="px">${f(r.last,0)}</span><span class="${cl(r.chg)}">${r.chg==null?"–":(r.chg>=0?"▲ ":"▼ ")+f(Math.abs(r.chg))+"%"}</span><span class="tg ${r.st}">${r.st}</span><span class="mu">ROC60 ${f(r.roc,1)}%</span><span class="sp"></span>
+  <button onclick="S.v='cari';draw()">📈 Grafik</button><button onclick="S.fl='${r.t}';S.v='hist';draw()">🕘 Riwayat</button></div>
+ <div class="note" style="margin:0">${pos}${trg}</div><div class="sms">${m}</div>`}
+function draw(){
+ renderSel();
+ document.querySelectorAll("nav a").forEach(a=>a.classList.toggle("on",a.dataset.v==S.v));
+ const V=$("view");if(!S.R.length){V.innerHTML='<div class="card mu">Klik <b>Harga Yahoo</b> atau <b>Data Dummy</b> untuk memulai.</div>';return}
+ const s=port(),wt=watch(),opn=S.R.filter(r=>r.act),sg=S.R.flatMap(r=>r.sigs);
+ if(S.v=="dash"){
+  const wl=S.pf=="hot"?wt.filter(r=>Math.abs(r.buyTrig.dist)<=3):wt;
+  V.innerHTML=idxCard()+dataCard()+cmpCard()+`<div class="g4">
+  <div class="k" style="--i:0"><i class="ic">💰</i><span>Cumulative Return</span><b id="c0" class="${cl(s.net)}">–</b><small>Agregat semua trade tertutup</small></div>
+  <div class="k" style="--i:1"><i class="ic">💼</i><span>Open Positions</span><b>${opn.length}</b><small>Posisi aktif saat ini</small></div>
+  <div class="k" style="--i:2"><i class="ic">⚡</i><span>Sinyal (7 bar terakhir)</span><b>${sg.length}</b><small>BUY/SELL terbaru</small></div>
+  <div class="k" style="--i:3" ><i class="ic">🎯</i><span>Pantauan Hari Ini</span><b>${wt.length}</b><small>Kandidat mendekati breakout</small></div></div>
+  <div class="g4">
+  <div class="k" style="--i:4"><i class="ic">📈</i><span>CAGR (per tahun)</span><b id="cg">–</b><small>Pertumbuhan majemuk tahunan</small></div>
+  <div class="k" style="--i:5"><i class="ic">🛟</i><span>CAGR ÷ Max Drawdown</span><b>${s.calmar==null?"–":f(s.calmar)}</b><small>Makin tinggi, makin efisien terhadap risiko</small></div>
+  <div class="k" style="--i:6"><i class="ic">⏳</i><span>Lama Periode Trade</span><b>${s.yrs?f(s.yrs,1)+" thn":"–"}</b><small>Trade pertama sampai terakhir</small></div>
+  <div class="k" style="--i:7"><i class="ic">💵</i><span>Ekuitas (modal Rp100 jt)</span><b>${s.eqEnd&&s.n?"Rp"+f(s.eqEnd*100,1)+" jt":"–"}</b><small>${S.p.sz}% ekuitas per posisi, maks ${S.mp} posisi</small></div></div>
+  <div class="g9" id="g9">${KD.map((k,i)=>`<div class="k" style="--i:${i+8}"><i class="ic">${KI[i]}</i><span>${k[1]}</span><b id="k_${k[0]}">–</b></div>`).join("")}<div class="k" style="--i:17"><i class="ic">🧾</i><span>Total Trade</span><b>${s.n}</b></div></div>
+  <div class="card"><div class="hdr"><div><h2>🎯 Pantauan Hari Ini — ${({brk:"Kandidat Breakout",rsi:"Kandidat Cross RSI",rss:"Kandidat RSI + S/R",rst:"Kandidat RSI + S/R + Time Stop",mr:"Kandidat Mean Reversion"})[S.p.strat]}</h2>${S.p.strat=="mr"?`<p class="sub">Belum berposisi, likuid, harga di atas EMA200, dan IHSG di atas EMA50 (jika filter aktif). <b>Pemicu</b> = harga penutupan di bawah mana RSI(${S.p.mrp}) turun di bawah ${S.p.mro}; jarak negatif berarti harga harus turun sebesar itu. Bukan nasihat investasi.</p>`:S.p.strat!="brk"?`<p class="sub">Belum berposisi, likuid, dan IHSG di atas EMA50 (jika filter aktif). <b>Pemicu</b> = estimasi harga penutupan yang membuat RSI ${S.p.rp} memotong level ${S.p.strat=="rsi"?S.p.rl:S.p.os} ke atas${S.p.strat=="rsi"?"":", dengan zona support sudah tersentuh"} (fraksi BEI). Bukan nasihat investasi.</p>`:""}<p class="sub" ${S.p.strat!="brk"?"hidden":""}>Belum berposisi, lolos filter tren (Close&gt;EMA50, EMA50&gt;EMA200, EMA200 naik) &amp; likuiditas, dan IHSG di atas EMA50. <b>Level breakout</b> = HHV ${S.p.brk} hari + 1 tick, dibulatkan ke fraksi BEI (maks ${S.p.mxe}× level); syarat lain: volume &gt; ${S.p.vm}× rata-rata, candle hijau &amp; close di 30% teratas range (bukan nasihat investasi).</p></div>
+  <div class="chips"><button class="chip ${S.pf=="all"?"on":""}" data-pf="all">Semua</button><button class="chip ${S.pf=="hot"?"on":""}" data-pf="hot">🔥 Sangat Dekat</button></div></div>
+  <div class="w"><table><thead><tr><th>Saham</th><th>Harga Sekarang</th>${S.p.strat!="brk"?"<th>Pemicu Buy</th><th>Jarak</th><th>RSI</th><th>ROC60</th>":"<th>Level Breakout</th><th>Jarak</th><th>Volume Hari Ini</th><th>Close Pos</th><th>ROC60</th>"}<th>Prioritas</th></tr></thead><tbody>${rows(wl,r=>`<td><b>${r.t}.JK</b></td><td>${f(r.last,0)}</td><td><b>${f(r.buyTrig.p,0)}</b></td><td class="p">${r.buyTrig.dist>0?"+":""}${f(r.buyTrig.dist)}%</td>${S.p.strat!="brk"?`<td>${f(r.rsi,1)}</td>`:`<td>${r.vr==null?"–":f(r.vr,1)+"×"}</td><td>${f(r.cp*100,0)}%</td>`}<td>${pc(r.roc)}</td><td><span class="tg ${Math.abs(r.buyTrig.dist)<=3?"hot":"near"}">${Math.abs(r.buyTrig.dist)<=3?"🔥 Sangat Dekat":"👀 Dekat"}</span></td>`)||`<tr><td colspan=${S.p.strat!="brk"?7:8}>${S.ix&&!S.ix.ok?"🐻 Pasar risk-off — tidak ada entry baru":"Tidak ada kandidat"}</td></tr>`}</tbody></table></div></div>`+rules();
+  cu($("c0"),s.net,v=>(v>=0?"+":"")+f(v)+"%");cu($("cg"),s.cagr,v=>(v>=0?"+":"")+f(v)+"%");$("cg").className=s.cagr==null?"":s.cagr>=0?"p":"n";
+  KD.forEach(k=>{const e=$("k_"+k[0]),v=s[k[0]];cu(e,v,k[2]);e.className=k[3]==1?cl(v):k[3]==2?"n":k[3]==3?(v>=1?"p":"n"):""})}
+ else if(S.v=="cari"){
+  if(!S.sel||!S.R.find(x=>x.t==S.sel)){const first=S.R.find(x=>x.act)||S.R[0];S.sel=first?first.t:""}
+  const list=searchTickers(),r=S.R.find(x=>x.t==S.sel);
+  V.innerHTML=`<div class="two">
+  <div class="card"><input id="sq" placeholder="Cari kode saham…" value="${S.q||""}" autocomplete="off">
+  <div class="chips" style="margin-top:10px"><button class="chip ${S.cf=="semua"?"on":""}" data-cf="semua">Semua</button><button class="chip ${S.cf=="sinyal"?"on":""}" data-cf="sinyal">Sinyal</button><button class="chip ${S.cf=="posisi"?"on":""}" data-cf="posisi">Posisi</button></div>
+  <div class="slist">${list.map((x,i)=>`<div class="srow ${x.t==S.sel?"on":""}" style="--i:${Math.min(i,30)}" data-t="${x.t}"><div><b>${x.t}</b><small>ROC ${f(x.roc,0)}%</small></div><div class="pr"><b>${f(x.last,0)}</b><br><span class="tg ${x.st}">${x.st}</span></div></div>`).join("")||'<div class="mu" style="padding:10px">Tidak ada hasil</div>'}</div></div>
+  <div class="card">${r?`<div class="dhdr"><span class="px">${r.t}.JK ${f(r.last,0)}</span><span class="${cl(r.chg)}">${r.chg==null?"–":(r.chg>=0?"▲ ":"▼ ")+f(Math.abs(r.chg))+"%"}</span><span class="tg ${r.st}">${r.st}</span><span class="mu">ROC60 ${f(r.roc,1)}%</span></div>
+  <p class="sub">${r.act?(r.act.pend?"Sinyal BUY baru, eksekusi di open bar berikutnya":`Posisi: masuk ${f(r.act.ep,0)} · Floating ${pc(r.act.pnl)} · ${r.act.bars} bar`):"Tidak ada posisi terbuka pada saham ini"}</p>
+  ${priceChart(r)}
+  <h2 style="margin:14px 0 4px">Trade ${r.t} (${r.tr.length})</h2><div class="w" style="max-height:280px"><table><thead><tr><th>Tgl Buy</th><th>Harga Buy</th><th>Tgl Sell</th><th>Harga Sell</th><th>PNL</th><th>Bar Held</th></tr></thead><tbody>${rows(r.tr.slice().reverse().slice(0,40),x=>`<td>${dt(x.inD)}</td><td>${f(x.ep,0)}</td><td>${dt(x.outD)}</td><td>${f(x.xp,0)}</td><td>${pc(x.pnl)}</td><td>${x.bars}</td>`)||'<tr><td colspan=6>Belum ada trade tertutup</td></tr>'}</tbody></table></div>`:'<div class="mu">Pilih saham di daftar sebelah kiri.</div>'}</div></div>`;
+  const sq=$("sq");if(sq){sq.focus();sq.selectionStart=sq.selectionEnd=sq.value.length}}
+ else if(S.v=="sig"){
+  const sgs=sg.sort((a,b)=>b.d-a.d||(a.t<b.t?-1:1));
+  V.innerHTML=`<div class="card"><h2>⚡ Sinyal Terbaru (7 bar terakhir)</h2><div class="w"><table><thead><tr><th>Saham</th><th>Sinyal</th><th>Tanggal</th><th>Close</th><th>ROC60</th><th>Eksekusi</th></tr></thead><tbody>${rows(sgs,x=>`<td><b>${x.t}</b></td><td><span class="tg ${x.s>0?"BUY":"SELL"}">${x.s>0?"BUY":"SELL"}</span></td><td>${dt(x.d)}</td><td>${f(x.c,0)}</td><td>${pc(x.r)}</td><td>${x.today?"Open bar berikutnya":"Sudah dieksekusi"}</td>`)||'<tr><td colspan=6>Tidak ada sinyal</td></tr>'}</tbody></table></div></div>
+  <div class="card"><h2>📌 Posisi Aktif (${opn.length})</h2><p class="sub">Stop / Exit = level harga terdekat yang memicu keluar: aturan keluar strategi aktif (Breakout: close &lt; LLV · Mean Reversion: close &gt; EMA target · RSI/S-R: lihat Aturan Strategi), stop loss, dan trailing (intrabar), dibulatkan ke fraksi BEI.</p><div class="w"><table><thead><tr><th>Saham</th><th>Tgl Masuk</th><th>Harga Masuk</th><th>Last</th><th>Floating</th><th>Bar Held</th><th>ROC60</th><th>Stop / Exit</th><th>Jarak</th></tr></thead><tbody>${rows(opn.sort((a,b)=>(b.act.pnl??-1e9)-(a.act.pnl??-1e9)),r=>{const a=r.act;return`<td><b>${r.t}</b></td><td>${a.pend?"Besok":dt(a.inD)}</td><td>${a.pend?"–":f(a.ep,0)}</td><td>${f(a.last,0)}</td><td>${a.pend?"–":pc(a.pnl)}</td><td>${a.bars}</td><td>${pc(r.roc)}</td><td>${r.sellTrig?f(r.sellTrig.p,0):"–"}</td><td>${r.sellTrig?'<span class="n">-'+f(r.sellTrig.dist)+"%</span>":"–"}</td>`})||'<tr><td colspan=9>Tidak ada posisi aktif</td></tr>'}</tbody></table></div></div>`}
+ else if(S.v=="hist"){
+  let tr=S.R.flatMap(r=>r.tr).sort((a,b)=>b.outD-a.outD);if(S.fl)tr=tr.filter(x=>x.t==S.fl);
+  V.innerHTML=`<div class="card"><div class="hdr"><h2>🕘 Riwayat Trade (${tr.length})</h2><label class="mu">Saham <select id="hf"><option value="">Semua</option>${S.R.map(r=>`<option ${r.t==S.fl?"selected":""}>${r.t}</option>`).join("")}</select></label></div>
+  <div class="w" style="max-height:600px"><table><thead><tr><th>Saham</th><th>Tgl Buy</th><th>Harga Buy</th><th>Tgl Sell</th><th>Harga Sell</th><th>PNL</th><th>Bar Held</th><th>Alasan Exit</th></tr></thead><tbody>${rows(tr.slice(0,600),x=>`<td><b>${x.t}</b></td><td>${dt(x.inD)}</td><td>${f(x.ep,0)}</td><td>${dt(x.outD)}</td><td>${f(x.xp,0)}</td><td>${pc(x.pnl)}</td><td>${x.bars}</td><td class="mu">${WHY[x.why]||x.why||"–"}</td>`)}</tbody></table></div></div>`;
+  $("hf").onchange=e=>{S.fl=e.target.value;draw()}}
+ else if(S.v=="map"){
+  const C=[["t","Saham"],["n","Trade"],["net","% Net"],["avg","AVG PNL"],["pf","PF"],["aw","AVG Win"],["al","AVG Loss"],["wr","Win %"],["dd","Max DD"],["bw","Bar Win"],["bl","Bar Loss"]];
+  const a=S.R.slice().sort((x,y)=>{const p=S.sk=="t"?x.t:x.stats[S.sk]??-1e9,q=S.sk=="t"?y.t:y.stats[S.sk]??-1e9;return(p>q?1:p<q?-1:0)*S.sd});
+  V.innerHTML=`<div class="card"><h2>🗺 Peta Performa (% net profit per saham)</h2><p class="sub">Klik kotak untuk melihat riwayat tradenya.</p><div class="hm">${a.map((r,i)=>{const v=r.stats.net,k=v==null?0:Math.min(1,Math.sqrt(Math.abs(v))/14);const bg=v==null?"#0e2338":v>=0?`rgba(31,229,143,${.12+k*.6})`:`rgba(255,107,129,${.12+k*.6})`;
+   return`<div class="tile" data-t="${r.t}" style="--i:${Math.min(i,60)};background:${bg}"><b>${r.t}</b><small>${v==null?"–":(v>0?"+":"")+f(v,1)+"%"}</small></div>`}).join("")}</div></div>
+  <div class="card"><h2>Statistik per Saham</h2><div class="w"><table><thead><tr>${C.map(c=>`<th data-k="${c[0]}">${c[1]}${S.sk==c[0]?(S.sd>0?" ▲":" ▼"):""}</th>`).join("")}</tr></thead><tbody>${rows(a,r=>{const s=r.stats;return`<td><b>${r.t}</b></td><td>${s.n}</td><td>${pc(s.net)}</td><td>${pc(s.avg)}</td><td>${s.pf===Infinity?"∞":f(s.pf)}</td><td>${pc(s.aw)}</td><td>${pc(s.al)}</td><td>${f(s.wr,1)}</td><td>${f(s.dd)}</td><td>${f(s.bw,1)}</td><td>${f(s.bl,1)}</td>`})}</tbody></table></div></div>`}
+ else{
+  const P=s.pts;if(!P.length){V.innerHTML='<div class="card mu">Belum ada trade tertutup.</div>';return}
+  const W=900,H=300,x0=P[0].d,x1=P[P.length-1].d||x0+1,mn=Math.min(1,...P.map(p=>p.eq)),mx=Math.max(...P.map(p=>p.eq)),X=d=>(d-x0)/(x1-x0||1)*W,Y=v=>H-24-(v-mn)/(mx-mn||1)*(H-50),mdd=Math.max(...P.map(p=>p.dd),1);
+  const ln="M"+P.map(p=>X(p.d).toFixed(1)+" "+Y(p.eq).toFixed(1)).join("L"),dd="M0 340L"+P.map(p=>X(p.d).toFixed(1)+" "+(340+p.dd/mdd*55).toFixed(1)).join("L")+`L${W} 340Z`;
+  V.innerHTML=`<div class="card"><h2>📈 Equity Curve Portofolio</h2><p class="sub">Maks ${S.mp} posisi × ${S.p.sz}% ekuitas, prioritas ROC60, komisi ${S.p.cm}%/sisi · ${s.n} trade · ${dt(x0)} → ${dt(x1)} · Rp100 jt → Rp${f(P[P.length-1].eq*100,1)} jt · Return <b class="${cl(s.net)}">${f(s.net)}%</b> · Max DD <b class="n">${f(s.dd)}%</b></p>
+  <svg viewBox="0 0 ${W} 410"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#14d6c0" stop-opacity=".35"/><stop offset="1" stop-color="#2f8bff" stop-opacity="0"/></linearGradient><linearGradient id="s" x1="0" x2="1"><stop offset="0" stop-color="#2f8bff"/><stop offset="1" stop-color="#1fe58f"/></linearGradient></defs>
+  ${[0,1,2,3].map(i=>`<line x1="0" x2="${W}" y1="${25+i*70}" y2="${25+i*70}" stroke="#153049" stroke-dasharray="3 5"/>`).join("")}
+  <path d="${ln}L${W} ${H}L0 ${H}Z" fill="url(#g)"/><path class="ln" pathLength="1" d="${ln}" fill="none" stroke="url(#s)" stroke-width="2.4"/>
+  <text x="4" y="16" fill="#7f9bb5" font-size="11">Ekuitas ${f(mx,2)}x</text><text x="4" y="${H-8}" fill="#7f9bb5" font-size="11">${f(mn,2)}x</text>
+  <path d="${dd}" fill="#ff6b8144" stroke="#ff6b81"/><text x="4" y="336" fill="#7f9bb5" font-size="11">Drawdown (maks ${f(s.dd)}%)</text></svg></div>`}
+}
+// ===== Events =====
+document.querySelector("nav").onclick=e=>{const a=e.target.closest("a");if(a){S.v=a.dataset.v;draw()}};
+$("view").onclick=e=>{const c=e.target.closest("[data-pf]");if(c){S.pf=c.dataset.pf;draw();return}
+ const t=e.target.closest(".tile");if(t){S.fl=t.dataset.t;S.v="hist";draw();return}
+ const cf=e.target.closest("[data-cf]");if(cf){S.cf=cf.dataset.cf;draw();return}
+ const sr=e.target.closest(".srow");if(sr){S.sel=sr.dataset.t;draw();return}
+ const tr=e.target.closest("tbody tr");if(tr){const bb=tr.querySelector("b"),tt=bb&&bb.textContent.replace(".JK","").trim();if(tt&&S.R.find(x=>x.t==tt)){S.sel=tt;renderSel();return}}
+ const th=e.target.closest("th[data-k]");if(th){S.sd=S.sk==th.dataset.k?-S.sd:-1;S.sk=th.dataset.k;draw()}};
+$("mq").onclick=e=>{const i=e.target.closest(".it");if(i)pickSel(i.dataset.t)};
+$("view").oninput=e=>{if(e.target.id=="sq"){S.q=e.target.value;draw()}};
+$("bYf").onclick=yahoo;$("bMs").onclick=yahooMissing;$("bDm").onclick=dummy;$("bRc").onclick=()=>Object.keys(S.raw).length?recompute():yahoo();
+$("bUp").onclick=()=>$("fl").click();$("fl").onchange=e=>e.target.files[0]&&upload(e.target.files[0]);
+["strat","rsip","rsil","os","ob","sr","tol","tb","tn","tl","mrp","mro","mre","mrt","brk","ext","vm","mxe","sl","trp","lq","mp","sz","cm","um","ub","pb"].forEach(i=>$(i).onchange=()=>Object.keys(S.raw).length&&recompute());
+const PV={rsip:"rsi rss rst",rsil:"rsi",os:"rss rst",ob:"rss rst",sr:"rss rst",tol:"rss rst",tb:"rss rst",tn:"rst",tl:"rst",mrp:"mr",mro:"mr",mre:"mr",mrt:"mr",brk:"brk",ext:"brk",vm:"brk",mxe:"brk",ub:"brk",pb:"brk"};
+function stratUI(){const v=$("strat").value;Object.keys(PV).forEach(id=>{const l=$(id).closest("label");if(l)l.style.display=PV[id].split(" ").includes(v)?"":"none"})}
+$("strat").addEventListener("change",stratUI);
+window.addEventListener("load",()=>{const fx=document.createElement("div");fx.className="fx";
+ fx.innerHTML=Array.from({length:12},(_,i)=>`<span style="left:${(i*8.5+Math.random()*5).toFixed(0)}%;font-size:${18+Math.random()*16|0}px;animation-duration:${18+Math.random()*20|0}s;animation-delay:-${Math.random()*30|0}s">${["📈","💰","🐂","🚀","💎","✨"][i%6]}</span>`).join("");
+ document.body.prepend(fx);{const q=new URLSearchParams(location.search).get("strat");if(["brk","rsi","rss","rst","mr"].includes(q))$("strat").value=q}stratUI();yahoo();setInterval(()=>{if(!S.busy&&document.visibilityState==="visible")yahoo()},30*60*1000)});
+</script></body></html>
